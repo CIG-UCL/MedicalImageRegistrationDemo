@@ -34,10 +34,11 @@ IXIoriginalDIR = [DataDIR '/IXIoriginal'];
 % set the preprocessed IXI data folder
 IXIpreprocessedDIR = [DataDIR '/IXIpreprocessed'];
 
-%% reorient the T1 data to the standard (MNI) orientation
+%% set up the subject ID of the IXI data
 
-% set up the subject ID of the IXI data
 IXIsubjIDs = {'IXI002-Guys-0828', 'IXI025-Guys-0852'};
+
+%% reorient the T1 data to the standard (MNI) orientation
 
 % for each subject ID
 for i = 1:length(IXIsubjIDs)
