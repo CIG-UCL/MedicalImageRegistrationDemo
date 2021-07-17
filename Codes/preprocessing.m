@@ -1,11 +1,17 @@
 % Preprocessing log
+%
+% This logs all the steps used to preprocess the IXI example
+% data used for this demo.
+%
+%
+% Author: Gary Hui Zhang (gary.zhang@ucl.ac.uk)
+%
+%
 
 %% set up FSL
-% get FSLDIR
-FSLDIR = getenv('FSLDIR');
 
-% set up FSLOUTPUTTYPE
-setenv('FSLOUTPUTTYPE', 'NIFTI_GZ');
+% basic set up
+FSLDIR = setupFSL();
 
 % set up the command name with full path
 % 1) the command to reorient the data to the standard (MNI) orientation
@@ -40,6 +46,7 @@ for i = 1:length(IXIsubjIDs)
     % output file name with full path
     outputFilename = [IXIpreprocessedDIR '/' IXIsubjIDs{i} '-T1'];
     % execute the reorientation
+    disp([reorient ' ' inputFilename ' ' outputFilename]);
     unix([reorient ' ' inputFilename ' ' outputFilename]);
 end
 
@@ -55,5 +62,6 @@ for i = 1:length(IXIsubjIDs)
     % output file name with full path
     outputFilename = [IXIpreprocessedDIR '/' IXIsubjIDs{i} '-T1'];
     % execute the extraction
+    disp([extract ' ' inputFilename ' ' outputFilename ' ' options{i}]);
     unix([extract ' ' inputFilename ' ' outputFilename ' ' options{i}]);
 end
