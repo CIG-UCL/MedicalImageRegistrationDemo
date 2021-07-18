@@ -39,13 +39,7 @@ function imageFusionDemo()
 
 %% set up FSL
 
-% basic set up
-FSLDIR = setupFSL();
-
-% set up the command name with full path
-%
-% the command for linear registration tool FLIRT
-flirt = [FSLDIR '/bin/flirt'];
+setupFSL();
 
 %% set up path
 
@@ -101,7 +95,7 @@ for i = 1:length(IXIsubjIDs)
     
     % set up the command string to apply the identity transformation to
     % the moving image
-    cmd = [flirt ' -in ' movingImageFilename ' -ref ' fixedImageFilename ' -applyxfm -init ' identityFilename ' -out ' outputImageFilename ' -v '];
+    cmd = ['flirt -in ' movingImageFilename ' -ref ' fixedImageFilename ' -applyxfm -init ' identityFilename ' -out ' outputImageFilename ' -v '];
     
     % print out the command string
     disp(cmd);
@@ -142,7 +136,7 @@ for i = 1:length(IXIsubjIDs)
     transformFilename = [imageFusionDIR '/' IXIsubjIDs{i} '-T1toT2.mat'];
     
     % set up the command string to execute the registration
-    cmd = [flirt ' -in ' movingImageFilename ' -ref ' fixedImageFilename ' -cost ' similarity ' -searchcost ' similarity ' -dof ' dof ' -omat ' transformFilename ' -v '];
+    cmd = ['flirt -in ' movingImageFilename ' -ref ' fixedImageFilename ' -cost ' similarity ' -searchcost ' similarity ' -dof ' dof ' -omat ' transformFilename ' -v '];
 
     % print out the command string
     disp(cmd);
@@ -172,7 +166,7 @@ for i = 1:length(IXIsubjIDs)
     outputFilename = [imageFusionDIR '/' IXIsubjIDs{i} '-T1toT2'];
     
     % set up the command string to transform the moving image
-    cmd = [flirt ' -in ' movingImageFilename ' -ref ' fixedImageFilename ' -applyxfm -init ' transformFilename ' -out ' outputFilename];
+    cmd = ['flirt -in ' movingImageFilename ' -ref ' fixedImageFilename ' -applyxfm -init ' transformFilename ' -out ' outputFilename];
     
     % print out the command string
     disp(cmd);
