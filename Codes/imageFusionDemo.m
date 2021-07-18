@@ -175,5 +175,54 @@ for i = 1:length(IXIsubjIDs)
     unix(cmd);
 end
 
+%% visualise the geometric transformation with grid volumes
+%
+% grid volumes can be used to visualise the characteristic of geometric
+% transformations.  it works by creating grid volumes that match the voxel
+% space of the moving image and transform the grid volumes with the
+% transformation estimated to align the moving image to the fixed.
+%
+% in this demo, we will use it to visualise the rigid transformation 
+% produced to fuse the IXI subject - IXI002-Guys-0828.
+%
+
+% fixed image file name with full path
+fixedImageFilename = [IXIoriginalDIR '/' IXIsubjIDs{1} '-T2'];
+
+% moving image file name with full path
+movingImageFilename = [IXIpreprocessedDIR '/' IXIsubjIDs{1} '-T1'];
+
+% create the grid volumes that match the voxel space of the moving image
+createGrids(movingImageFilename);
+
+% there are three grid volumes - one for visualising the effect of a
+% transformation along one of the three orthogonal planes:
+%
+%   1. ${prefix}-gridx.nii.gz - sagittal plane
+%   
+%   2. ${prefix}-gridy.nii.gz - coronal plane
+%   
+%   3. ${prefix}-gridz.nii.gz - axial plane
+%
+% in this demo, as an example, we will look along the sagittal plane, which
+% turns out to be the most interesting for this subject
+%
+gridImageFilename = [DataDIR '/grids/' IXIsubjIDs{1} '-T1-gridx'];
+
+% file name for the estimated linear transformation
+transformFilename = [imageFusionDIR '/' IXIsubjIDs{1} '-T1toT2.mat'];
+
+% file name for the transformed moving image
+outputFilename = [imageFusionDIR '/' IXIsubjIDs{1} '-T1toT2-gridx'];
+
+% set up the command string to transform the moving image
+cmd = ['flirt -in ' gridImageFilename ' -ref ' fixedImageFilename ' -applyxfm -init ' transformFilename ' -out ' outputFilename];
+
+% print out the command string
+disp(cmd);
+
+% execute the command
+unix(cmd);
+
 %% end of function
 end
