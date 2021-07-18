@@ -1,6 +1,7 @@
-% Preprocessing log
+function preprocessing()
+% function preprocessing()
 %
-% This logs all the steps used to preprocess the IXI example
+% This function logs all the steps used to preprocess the IXI example
 % data used for this demo.
 %
 %
@@ -44,11 +45,18 @@ IXIsubjIDs = {'IXI002-Guys-0828', 'IXI025-Guys-0852'};
 for i = 1:length(IXIsubjIDs)
     % input file name with full path
     inputFilename = [IXIoriginalDIR '/' IXIsubjIDs{i} '-T1'];
+    
     % output file name with full path
     outputFilename = [IXIpreprocessedDIR '/' IXIsubjIDs{i} '-T1'];
-    % execute the reorientation
-    disp([reorient ' ' inputFilename ' ' outputFilename]);
-    unix([reorient ' ' inputFilename ' ' outputFilename]);
+    
+    % set up the command string to execute the reorientation
+    cmd = [reorient ' ' inputFilename ' ' outputFilename];
+    
+    % print out the command string
+    disp(cmd);
+    
+    % execute the command
+    unix(cmd);
 end
 
 %% extract brain regions
@@ -60,9 +68,19 @@ options = {'0 156 0 256 59 180', '0 156 0 256 81 180'};
 for i = 1:length(IXIsubjIDs)
     % input file name with full path
     inputFilename = [IXIpreprocessedDIR '/' IXIsubjIDs{i} '-T1'];
+    
     % output file name with full path
     outputFilename = [IXIpreprocessedDIR '/' IXIsubjIDs{i} '-T1'];
-    % execute the extraction
-    disp([extract ' ' inputFilename ' ' outputFilename ' ' options{i}]);
-    unix([extract ' ' inputFilename ' ' outputFilename ' ' options{i}]);
+    
+    % set up the command string to execute the reorientation
+    cmd = [extract ' ' inputFilename ' ' outputFilename ' ' options{i}];
+    
+    % print out the command string
+    disp(cmd);
+    
+    % execute the command
+    unix(cmd);
+end
+
+%% end of function
 end
