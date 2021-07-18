@@ -1,8 +1,8 @@
 function DTITK_ROOT = setupDTITK(inputDTITK_ROOT)
 % function DTITK_ROOT = setupDTITK(inputDTITK_ROOT)
 %
-% This function sets up the environment for running DTITK tools from within
-% Matlab.
+% This function sets up the environment for running DTI-TK tools from 
+% within Matlab.
 %
 % INPUT:
 %
@@ -42,6 +42,17 @@ else
     setenv('DTITK_ROOT', inputDTITK_ROOT);
     DTITK_ROOT = inputDTITK_ROOT;
 end
+
+%% update PATH to include DTI-TK tools
+
+% get the current PATH
+currentPATH = getenv('PATH');
+
+% append the path to DTI-TK tools
+updatedPATH = [currentPATH ':' DTITK_ROOT '/bin:' DTITK_ROOT '/scripts:' DTITK_ROOT '/utilities'];
+
+% update the PATH environment variable
+setenv('PATH', updatedPATH);
 
 %% end of function
 end
