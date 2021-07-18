@@ -48,6 +48,17 @@ else
     FSLDIR = inputFSLDIR;    
 end
 
+%% update PATH to include FSL tools
+
+% get the current PATH
+currentPATH = getenv('PATH');
+
+% append the path to FSL tools
+updatedPATH = [currentPATH ':' FSLDIR '/bin'];
+
+% update the PATH environment variable
+setenv('PATH', updatedPATH);
+
 %% set up FSLOUTPUTTYPE
 
 if (nargin < 2)
