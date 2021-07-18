@@ -11,15 +11,7 @@ function preprocessing()
 
 %% set up FSL
 
-% basic set up
-FSLDIR = setupFSL();
-
-% set up the command name with full path
-% 1) the command to reorient the data to the standard (MNI) orientation
-reorient = [FSLDIR '/bin/fslreorient2std'];
-
-% 2) the command to extract a subset of the data
-extract = [FSLDIR '/bin/fslroi'];
+setupFSL();
 
 %% set up path
 
@@ -50,7 +42,7 @@ for i = 1:length(IXIsubjIDs)
     outputFilename = [IXIpreprocessedDIR '/' IXIsubjIDs{i} '-T1'];
     
     % set up the command string to execute the reorientation
-    cmd = [reorient ' ' inputFilename ' ' outputFilename];
+    cmd = ['fslreorient2std ' inputFilename ' ' outputFilename];
     
     % print out the command string
     disp(cmd);
@@ -73,7 +65,7 @@ for i = 1:length(IXIsubjIDs)
     outputFilename = [IXIpreprocessedDIR '/' IXIsubjIDs{i} '-T1'];
     
     % set up the command string to execute the reorientation
-    cmd = [extract ' ' inputFilename ' ' outputFilename ' ' options{i}];
+    cmd = ['fslroi ' inputFilename ' ' outputFilename ' ' options{i}];
     
     % print out the command string
     disp(cmd);
