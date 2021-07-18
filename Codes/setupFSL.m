@@ -9,7 +9,8 @@ function FSLDIR = setupFSL(inputFSLDIR, inputFSLOUTPUTTYPE)
 % 1. inputFSLDIR - a string that specifies FSLDIR, the full path to the
 %    root directory of your FSL installation.
 %    
-%    optional - default to '/opt/fsl'
+%    optional - if not provided, will read from the environment variable 
+%    FSLDIR
 %
 % 2. inputFSLOUTPUTTYPE - a string that specifies FSLOUTPUTTYPE, which
 %    defines the desired NIfTI file format to use.
@@ -26,36 +27,37 @@ function FSLDIR = setupFSL(inputFSLDIR, inputFSLOUTPUTTYPE)
 %
 %
 
-% set up FSLDIR
-% 
-% First, check if FSLDIR is defined as an environment variable, which can
-% be retrieved with getenv
-%
-FSLDIR = getenv('FSLDIR');
+%% set up FSLDIR
 
-% If not, the value of FSLDIR for the system must be provided as the first
-% input argument
-if isempty(FSLDIR)
-    % So FSLDIR still needs to be defined
-    if (nargin < 1)
-        % So FSLDIR not provided as the first input argument
+if (nargin < 1)
+    % if no input arguments given, check if FSLDIR is defined as an
+    % environment variable, which can be retrieved with getenv
+    FSLDIR = getenv('FSLDIR');
+    
+    % if not, the value of FSLDIR for the system must be provided as the 
+    % first input argument
+    if isempty(FSLDIR)
+        % so inputFSLDIR is needed
         fprintf('ERROR: Environment variable FSLDIR undefined!\n\n');
         fprintf('Please provide the correct FSLDIR for your system as the first input argument\n\n');
         return;
     end
-    
-    % Otherwise, use the provided FSLDIR
+else
+    % otherwise, use the provided FSLDIR
     setenv('FSLDIR', inputFSLDIR);
-    FSLDIR = inputFSLDIR;
+    FSLDIR = inputFSLDIR;    
 end
 
-% set up FSLOUTPUTTYPE
+%% set up FSLOUTPUTTYPE
+
 if (nargin < 2)
-    % So FSLOUTPUTTYPE not provided as the second input argument
+    % so FSLOUTPUTTYPE not provided as the second input argument
+    % use the default
     setenv('FSLOUTPUTTYPE', 'NIFTI_GZ');
 else
-    % Otherwise, use the provided FSLOUTPUTTYPE
+    % otherwise, use the provided FSLOUTPUTTYPE
     setenv('FSLOUTPUTTYPE', inputFSLOUTPUTTYPE);
 end
 
+%% end of function
 end
