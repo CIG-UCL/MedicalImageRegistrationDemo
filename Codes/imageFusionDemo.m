@@ -39,7 +39,7 @@ function imageFusionDemo()
 
 %% set up FSL
 
-setupFSL();
+FSLDIR = setupFSL();
 
 %% set up path
 
@@ -79,6 +79,9 @@ IXIsubjIDs = {'IXI002-Guys-0828', 'IXI025-Guys-0852'};
 % moving image as the input image.
 %
 
+% file name for the identity transformation
+identityFilename = [FSLDIR '/etc/flirtsch/' 'ident.mat'];
+
 % for each subject
 for i = 1:length(IXIsubjIDs)
     % fixed image file name with full path
@@ -86,9 +89,6 @@ for i = 1:length(IXIsubjIDs)
     
     % moving image file name with full path
     movingImageFilename = [IXIpreprocessedDIR '/' IXIsubjIDs{i} '-T1'];
-    
-    % file name for the identity transformation
-    identityFilename = [IXIpreprocessedDIR '/' 'identity.mat'];
     
     % file name for the resliced moving image
     outputImageFilename = [imageFusionDIR '/' IXIsubjIDs{i} '-T1'];
