@@ -30,26 +30,36 @@ After you have downloaded the repository onto your local system, there are just 
 
 1. Add the [Codes](Codes) folder to the Matlab PATH
 
+To do this, first find the full path to this folder. For example, on my system, this is `/Users/gzhang/unix/research/matlab/MedicalImageRegistrationDemo/Codes`.
+
+Next call a built-in Matlab function called [`addpath`](https://mathworks.com/help/matlab/ref/addpath.html) with the full path, in quotation marks, as its input.  On my system, the appropriate command is
+
+```bash
+  addpath('/Users/gzhang/unix/research/matlab/MedicalImageRegistrationDemo/Codes')
+```
+
 If you need help with this, please follow this [visual guide](Help/CodesAdd2Path.png) or refer to [Matlab's documentation](https://mathworks.com/help/matlab/ref/addpath.html).
 
 2. Set up the Matlab environment to run FSL
 
 A number of Matlab environment variables are required to allow FSL tools to run from within Matlab. To set this up, first find the full path to the root folder of your FSL installation. For example, on my system, this is `/opt/fsl`.
 
-Next call a Matlab function we provide called [`setupFSL`](Codes/setupFSL.m) with the full path, in quotation marks, as its input:
+Next call a Matlab function we provide called [`setupFSL`](Codes/setupFSL.m) with the full path, in quotation marks, as its input. On my system, the appropriate command is
 
 ```bash
   setupFSL('/opt/fsl')
 ```
+
 If you need help with this, please follow this [visual guide](Help/FSLsetup.png).
 
 3. Set up the Matlab environment to run DTI-TK
 
 The reason to do this is similar to FSL and the process is similar as well. First find the full path to the root directory of your DTI-TK installation. Using my system as an example again, this is `/Users/gzhang/unix/tools/dtitk-2.3.3-Darwin-x86_64`.
 
-Next call a Matlab function we provide called [`setupDTITK`](Codes/setupDTITK.m) with the full path, in quotation marks, as its input:
+Next call a Matlab function we provide called [`setupDTITK`](Codes/setupDTITK.m) with the full path, in quotation marks, as its input. On my system, the appropriate command is
 
 ```bash
   setupDTITK('/Users/gzhang/unix/tools/dtitk-2.3.3-Darwin-x86_64')
 ```
 
+If you need help with this, please follow this [visual guide](Help/DTITKsetup.png).
