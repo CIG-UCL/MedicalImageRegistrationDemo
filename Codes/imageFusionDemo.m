@@ -41,22 +41,22 @@ function imageFusionDemo()
 
 FSLDIR = setupFSL();
 
-%% set up path
+%% change to the demo's Data folder and set up the data path
 
-% set the root folder
-ROOT = '~/unix/research/matlab/MedicalImageRegistrationDemo';
+% remember the current folder
+originalDIR = pwd();
 
-% set the Data folder
-DataDIR = [ROOT '/Data'];
+% change to the Data folder
+toDataDIR();
 
 % set the original IXI data folder
-IXIoriginalDIR = [DataDIR '/IXIoriginal'];
+IXIoriginalDIR = 'IXIoriginal';
 
 % set the preprocessed IXI data folder
-IXIpreprocessedDIR = [DataDIR '/IXIpreprocessed'];
+IXIpreprocessedDIR = 'IXIpreprocessed';
 
 %% set up the directory for this demo
-imageFusionDIR = [DataDIR '/imageFusion'];
+imageFusionDIR = 'imageFusion';
 
 %% set up the subject ID of the IXI data
 
@@ -207,7 +207,7 @@ createGrids(movingImageFilename);
 % in this demo, as an example, we will look along the sagittal plane, which
 % turns out to be the most interesting for this subject
 %
-gridImageFilename = [DataDIR '/grids/' IXIsubjIDs{1} '-T1-gridx'];
+gridImageFilename = ['grids/' IXIsubjIDs{1} '-T1-gridx'];
 
 % file name for the estimated linear transformation
 transformFilename = [imageFusionDIR '/' IXIsubjIDs{1} '-T1toT2.mat'];
@@ -223,6 +223,10 @@ disp(cmd);
 
 % execute the command
 unix(cmd);
+
+%% back to the original folder
+
+cd(originalDIR);
 
 %% end of function
 end

@@ -43,19 +43,16 @@ setupDTITK();
 
 setupFSL();
 
-%% set up path
+%% change to the demo's Data folder and set up the data path
 
-% set the root folder
-ROOT = '~/unix/research/matlab/MedicalImageRegistrationDemo';
+% remember the current directory
+originalDIR = pwd();
 
-% set the Data folder
-DataDIR = [ROOT '/Data'];
+% change to the Data folder
+toDataDIR();
 
-% set the grids folder
-GridsDIR = [DataDIR '/grids'];
-
-% change the work directory to the grids folder
-cd(GridsDIR);
+% change to the grids folder
+cd('grids');
 
 %% create the grid volumes
 
@@ -64,7 +61,7 @@ cd(GridsDIR);
 % note that unlike FSL, DTI-TK requires the suffix of the NIfTI files to
 % be included
 %
-targetImageFilename = [target '.nii.gz'];
+targetImageFilename = [originalDIR '/' target '.nii.gz'];
 
 % set up the command string to create the grid volumes
 cmd = ['SVtool -target ' targetImageFilename ' -grid'];
@@ -104,7 +101,7 @@ end
 % folder as the target
 for i=1:length(grids)
     % set up the command string to renaming
-    cmd = ['mv ' grids{i} '.nii.gz ' target '-' grids{i} '.nii.gz'];
+    cmd = ['mv ' grids{i} '.nii.gz ' originalDIR '/' target '-' grids{i} '.nii.gz'];
     
     % print out the command string
     disp(cmd);
@@ -116,7 +113,7 @@ end
 % we now need to move them back to grids folder
 for i=1:length(grids)
     % set up the command string to moving
-    cmd = ['mv ' target '-' grids{i} '.nii.gz ' GridsDIR];
+    cmd = ['mv ' originalDIR '/' target '-' grids{i} '.nii.gz .'];
     
     % print out the command string
     disp(cmd);
@@ -124,6 +121,10 @@ for i=1:length(grids)
     % execute the command
     unix(cmd);
 end
+
+%% when done, change back to the original working folder
+
+cd(originalDIR);
 
 %% end of function
 end
