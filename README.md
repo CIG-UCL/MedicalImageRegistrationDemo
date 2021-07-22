@@ -34,7 +34,7 @@ If you are comfortable with the command line options, you can use the following 
 
 2. Matlab GUI
 
-Matlab provides a simple GUI to download a Git respository. The documentation of this functionality is available [here](https://uk.mathworks.com/help/simulink/ug/clone-git-repository.html). I have provided a set of screenshots to illustrate the process: [Step 1](Help/matlabGitRetrieval1.png), [2](Help/matlabGitRetrieval2.png), and [3](Help/matlabGitRetrieval3.png).
+Matlab provides a simple GUI to download a Git respository. The documentation of this functionality is available [here](https://uk.mathworks.com/help/simulink/ug/clone-git-repository.html). I have provided a set of screenshots to illustrate the process: [Step 1](Help/matlabGitRetrieval1.png), [Step 2](Help/matlabGitRetrieval2.png), and [Step 3](Help/matlabGitRetrieval3.png).
 
 ## Initial set up
 
