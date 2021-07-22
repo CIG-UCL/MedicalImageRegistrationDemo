@@ -80,7 +80,7 @@ If you need help with this, please follow this [visual guide](Help/DTITKsetup.pn
 
 There are currently two demos provided: Image Fusion and Spatial Normalisation.
 
-1. Image Fusion
+1. [Image Fusion](Codes/imageFusionDemo.m)
 
 To run this demo, simply run the following Matlab command:
 
@@ -88,7 +88,7 @@ To run this demo, simply run the following Matlab command:
   imageFusionDemo
 ```
 
-2. Spatial Normalisation
+2. [Spatial Normalisation](Codes/spatialNormalisationDemo.m)
 
 To run this demo, simply run the following Matlab command:
 
