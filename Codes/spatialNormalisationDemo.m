@@ -49,19 +49,19 @@ function spatialNormalisationDemo()
 
 FSLDIR = setupFSL();
 
-%% set up path
+%% change to the demo's Data folder and set up the data path
 
-% set the root folder
-ROOT = '/Users/gzhang/unix/research/matlab/MedicalImageRegistrationDemo';
+% remember the current folder
+originalDIR = pwd();
 
-% set the Data folder
-DataDIR = [ROOT '/Data'];
+% change to the Data folder
+toDataDIR();
 
 % set the preprocessed IXI data folder
-IXIpreprocessedDIR = [DataDIR '/IXIpreprocessed'];
+IXIpreprocessedDIR = 'IXIpreprocessed';
 
 %% set up the directory for this demo
-spatialNormalisationDIR = [DataDIR '/spatialNormalisation'];
+spatialNormalisationDIR = 'spatialNormalisation';
 
 %% set up the subject ID of the IXI data
 
@@ -171,6 +171,9 @@ for i = 1:length(IXIsubjIDs)
     % the moving image with full path
     movingImageFilename = [IXIpreprocessedDIR '/' movingImage];
     
+    % file name for the estimated linear transformation
+    transformFilename = [spatialNormalisationDIR '/' movingImage 'to' fixedImage '.mat'];
+
     % file name for the transformed moving image
     outputFilename = [spatialNormalisationDIR '/' movingImage 'to' fixedImageHighRes '-linear'];
     
@@ -216,7 +219,7 @@ createGrids(movingImageFilename);
 % in this demo, as an example, we will look along the sagittal plane, which
 % turns out to be the most interesting for this subject
 %
-gridImageFilename = [DataDIR '/grids/' movingImage '-gridx'];
+gridImageFilename = ['grids/' movingImage '-gridx'];
 
 % file name for the transformed moving image
 outputFilename = [spatialNormalisationDIR '/' movingImage 'to' fixedImageHighRes '-linear'];
@@ -335,7 +338,7 @@ movingImage = [IXIsubjIDs{1} '-T1'];
 % in this demo, as an example, we will look along the sagittal plane, which
 % turns out to be the most interesting for this subject
 %
-gridImageFilename = [DataDIR '/grids/' movingImage '-gridx'];
+gridImageFilename = ['grids/' movingImage '-gridx'];
 
 % file name for the estimated non-linear transformation
 transformFilename = [spatialNormalisationDIR '/' movingImage 'to' fixedImage '_warpcoef'];
@@ -354,6 +357,10 @@ disp(cmd);
 
 % execute the command
 unix(cmd);
+
+%% back to the original folder
+
+cd(originalDIR);
 
 %% end of function
 end
