@@ -22,7 +22,19 @@ This provides the tool that helps with the visualisation of geometric transforma
 
 ## Download
 
-Please download the entire repository either as a zip archive or as a git clone from https://github.com/garyhuizhang/MedicalImageRegistrationDemo
+There are a number of ways to download the repository to your local system.
+
+1. Command line
+
+If you are comfortable with the command line options, you can use the following command:
+
+```bash
+  git clone https://github.com/garyhuizhang/MedicalImageRegistrationDemo.git
+```
+
+2. Matlab GUI
+
+Matlab provides a simple GUI to download a Git respository. The documentation of this functionality is available [here](https://uk.mathworks.com/help/simulink/ug/clone-git-repository.html). I have provided a set of screenshots to illustrate the process: [Step 1](Help/matlabGitRetrieval1.png), [2](Help/matlabGitRetrieval2.png), and [3](Help/matlabGitRetrieval3.png).
 
 ## Initial set up
 
