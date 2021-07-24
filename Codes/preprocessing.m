@@ -13,19 +13,19 @@ function preprocessing()
 
 setupFSL();
 
-%% set up path
+%% change to the demo's Data folder and set up the data path
 
-% set the root folder
-ROOT = '~/unix/research/matlab/MedicalImageRegistrationDemo';
+% remember the current folder
+originalDIR = pwd();
 
-% set the Data folder
-DataDIR = [ROOT '/Data'];
+% change to the Data folder
+toDataDIR();
 
 % set the original IXI data folder
-IXIoriginalDIR = [DataDIR '/IXIoriginal'];
+IXIoriginalDIR = 'IXIoriginal';
 
 % set the preprocessed IXI data folder
-IXIpreprocessedDIR = [DataDIR '/IXIpreprocessed'];
+IXIpreprocessedDIR = 'IXIpreprocessed';
 
 %% set up the subject ID of the IXI data
 
@@ -36,10 +36,10 @@ IXIsubjIDs = {'IXI002-Guys-0828', 'IXI025-Guys-0852'};
 % for each subject ID
 for i = 1:length(IXIsubjIDs)
     % input file name with full path
-    inputFilename = [IXIoriginalDIR '/' IXIsubjIDs{i} '-T1'];
+    inputFilename = [IXIoriginalDIR filesep IXIsubjIDs{i} '-T1'];
     
     % output file name with full path
-    outputFilename = [IXIpreprocessedDIR '/' IXIsubjIDs{i} '-T1'];
+    outputFilename = [IXIpreprocessedDIR filesep IXIsubjIDs{i} '-T1'];
     
     % set up the command string to execute the reorientation
     cmd = ['fslreorient2std ' inputFilename ' ' outputFilename];
@@ -59,10 +59,10 @@ options = {'0 156 0 256 59 180', '0 156 0 256 81 180'};
 % for each subject ID
 for i = 1:length(IXIsubjIDs)
     % input file name with full path
-    inputFilename = [IXIpreprocessedDIR '/' IXIsubjIDs{i} '-T1'];
+    inputFilename = [IXIpreprocessedDIR filesep IXIsubjIDs{i} '-T1'];
     
     % output file name with full path
-    outputFilename = [IXIpreprocessedDIR '/' IXIsubjIDs{i} '-T1'];
+    outputFilename = [IXIpreprocessedDIR filesep IXIsubjIDs{i} '-T1'];
     
     % set up the command string to execute the reorientation
     cmd = ['fslroi ' inputFilename ' ' outputFilename ' ' options{i}];
@@ -73,6 +73,10 @@ for i = 1:length(IXIsubjIDs)
     % execute the command
     unix(cmd);
 end
+
+%% back to the original folder
+
+cd(originalDIR);
 
 %% end of function
 end
