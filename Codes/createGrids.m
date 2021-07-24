@@ -61,7 +61,7 @@ cd('grids');
 % note that unlike FSL, DTI-TK requires the suffix of the NIfTI files to
 % be included
 %
-targetImageFilename = [originalDIR '/' target '.nii.gz'];
+targetImageFilename = [originalDIR filesep target '.nii.gz'];
 
 % set up the command string to create the grid volumes
 cmd = ['SVtool -target ' targetImageFilename ' -grid'];
@@ -101,7 +101,7 @@ end
 % folder as the target
 for i=1:length(grids)
     % set up the command string to renaming
-    cmd = ['mv ' grids{i} '.nii.gz ' originalDIR '/' target '-' grids{i} '.nii.gz'];
+    cmd = ['mv ' grids{i} '.nii.gz ' originalDIR filesep target '-' grids{i} '.nii.gz'];
     
     % print out the command string
     disp(cmd);
@@ -113,7 +113,7 @@ end
 % we now need to move them back to grids folder
 for i=1:length(grids)
     % set up the command string to moving
-    cmd = ['mv ' originalDIR '/' target '-' grids{i} '.nii.gz .'];
+    cmd = ['mv ' originalDIR filesep target '-' grids{i} '.nii.gz .'];
     
     % print out the command string
     disp(cmd);
