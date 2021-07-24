@@ -19,7 +19,7 @@ CodesDIR = fileparts(thisFunctionFullPath);
 cd(CodesDIR)
 
 % change to the Data folder
-cd(['..' filesep 'Data']);
+cd(fullfile('..','Data'));
 
 %% end of function
 end

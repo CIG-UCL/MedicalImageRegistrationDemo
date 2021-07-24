@@ -36,10 +36,10 @@ IXIsubjIDs = {'IXI002-Guys-0828', 'IXI025-Guys-0852'};
 % for each subject ID
 for i = 1:length(IXIsubjIDs)
     % input file name with full path
-    inputFilename = [IXIoriginalDIR filesep IXIsubjIDs{i} '-T1'];
+    inputFilename = fullfile(IXIoriginalDIR, [IXIsubjIDs{i} '-T1']);
     
     % output file name with full path
-    outputFilename = [IXIpreprocessedDIR filesep IXIsubjIDs{i} '-T1'];
+    outputFilename = fullfile(IXIpreprocessedDIR, [IXIsubjIDs{i} '-T1']);
     
     % set up the command string to execute the reorientation
     cmd = ['fslreorient2std ' inputFilename ' ' outputFilename];
@@ -59,10 +59,10 @@ options = {'0 156 0 256 59 180', '0 156 0 256 81 180'};
 % for each subject ID
 for i = 1:length(IXIsubjIDs)
     % input file name with full path
-    inputFilename = [IXIpreprocessedDIR filesep IXIsubjIDs{i} '-T1'];
+    inputFilename = fullfile(IXIpreprocessedDIR, [IXIsubjIDs{i} '-T1']);
     
     % output file name with full path
-    outputFilename = [IXIpreprocessedDIR filesep IXIsubjIDs{i} '-T1'];
+    outputFilename = fullfile(IXIpreprocessedDIR, [IXIsubjIDs{i} '-T1']);
     
     % set up the command string to execute the reorientation
     cmd = ['fslroi ' inputFilename ' ' outputFilename ' ' options{i}];

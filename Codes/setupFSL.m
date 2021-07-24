@@ -54,7 +54,7 @@ end
 currentPATH = getenv('PATH');
 
 % append the path to FSL tools
-updatedPATH = [currentPATH pathsep FSLDIR filesep 'bin'];
+updatedPATH = [currentPATH pathsep fullfile(FSLDIR, 'bin')];
 
 % update the PATH environment variable
 setenv('PATH', updatedPATH);

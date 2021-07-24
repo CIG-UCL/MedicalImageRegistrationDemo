@@ -76,8 +76,8 @@ fixedImage = 'MNI152_T1_2mm';
 fixedImageHighRes = 'MNI152_T1_1mm';
 
 % the fixed image with full path
-fixedImageFilename = [FSLDIR '/data/standard/' fixedImage];
-fixedImageHighResFilename = [FSLDIR '/data/standard/' fixedImageHighRes];
+fixedImageFilename = fullfile(FSLDIR, 'data', 'standard', fixedImage);
+fixedImageHighResFilename = fullfile(FSLDIR, 'data', 'standard', fixedImageHighRes);
 
 %% reslice the moving image in the same voxel space as the fixed image
 %
@@ -97,7 +97,7 @@ fixedImageHighResFilename = [FSLDIR '/data/standard/' fixedImageHighRes];
 %
 
 % file name for the identity transformation
-identityFilename = [FSLDIR filesep 'etc' filesep 'flirtsch' filesep 'ident.mat'];
+identityFilename = fullfile(FSLDIR, 'etc', 'flirtsch', 'ident.mat');
 
 % for each subject
 for i = 1:length(IXIsubjIDs)
@@ -105,10 +105,10 @@ for i = 1:length(IXIsubjIDs)
     movingImage = [IXIsubjIDs{i} '-T1'];
     
     % the moving image with full path
-    movingImageFilename = [IXIpreprocessedDIR filesep movingImage];
+    movingImageFilename = fullfile(IXIpreprocessedDIR, movingImage);
     
     % file name for the resliced moving image
-    outputImageFilename = [spatialNormalisationDIR filesep movingImage];
+    outputImageFilename = fullfile(spatialNormalisationDIR, movingImage);
     
     % set up the command string to apply the identity transformation to
     % the moving image
@@ -141,10 +141,10 @@ for i = 1:length(IXIsubjIDs)
     movingImage = [IXIsubjIDs{i} '-T1'];
     
     % the moving image with full path
-    movingImageFilename = [IXIpreprocessedDIR filesep movingImage];
+    movingImageFilename = fullfile(IXIpreprocessedDIR, movingImage);
     
     % file name for the estimated linear transformation
-    transformFilename = [spatialNormalisationDIR filesep movingImage 'to' fixedImage '.mat'];
+    transformFilename = fullfile(spatialNormalisationDIR, [movingImage 'to' fixedImage '.mat']);
     
     % set up the command string to execute the registration
     cmd = ['flirt -in ' movingImageFilename ' -ref ' fixedImageFilename ' -omat ' transformFilename ' -v '];
@@ -169,13 +169,13 @@ for i = 1:length(IXIsubjIDs)
     movingImage = [IXIsubjIDs{i} '-T1'];
     
     % the moving image with full path
-    movingImageFilename = [IXIpreprocessedDIR filesep movingImage];
+    movingImageFilename = fullfile(IXIpreprocessedDIR, movingImage);
     
     % file name for the estimated linear transformation
-    transformFilename = [spatialNormalisationDIR filesep movingImage 'to' fixedImage '.mat'];
+    transformFilename = fullfile(spatialNormalisationDIR, [movingImage 'to' fixedImage '.mat']);
 
     % file name for the transformed moving image
-    outputFilename = [spatialNormalisationDIR filesep movingImage 'to' fixedImageHighRes '-linear'];
+    outputFilename = fullfile(spatialNormalisationDIR, [movingImage 'to' fixedImageHighRes '-linear']);
     
     % set up the command string to transform the moving image
     cmd = ['flirt -in ' movingImageFilename ' -ref ' fixedImageHighResFilename ' -applyxfm -init ' transformFilename ' -out ' outputFilename];
@@ -202,7 +202,7 @@ end
 movingImage = [IXIsubjIDs{1} '-T1'];
 
 % the moving image with full path
-movingImageFilename = [IXIpreprocessedDIR filesep movingImage];
+movingImageFilename = fullfile(IXIpreprocessedDIR, movingImage);
 
 % create the grid volumes that match the voxel space of the moving image
 createGrids(movingImageFilename);
@@ -219,16 +219,16 @@ createGrids(movingImageFilename);
 % in this demo, as an example, we will look along the sagittal plane, which
 % turns out to be the most interesting for this subject
 %
-gridImageFilename = ['grids' filesep movingImage '-gridx'];
+gridImageFilename = fullfile('grids', [movingImage '-gridx']);
 
 % file name for the transformed moving image
-outputFilename = [spatialNormalisationDIR filesep movingImage 'to' fixedImageHighRes '-linear'];
+outputFilename = fullfile(spatialNormalisationDIR, [movingImage 'to' fixedImageHighRes '-linear']);
 
 % file name for the transformed moving image
 outputFilename = [outputFilename '-gridx'];
 
 % file name for the estimated linear transformation
-transformFilename = [spatialNormalisationDIR filesep movingImage 'to' fixedImage '.mat'];
+transformFilename = fullfile(spatialNormalisationDIR, [movingImage 'to' fixedImage '.mat']);
 
 % set up the command string to transform the moving image
 cmd = ['flirt -in ' gridImageFilename ' -ref ' fixedImageHighResFilename ' -applyxfm -init ' transformFilename ' -out ' outputFilename];
@@ -256,7 +256,7 @@ unix(cmd);
 %
 
 % specify flirt configuration file optimised for aligning to MNI template
-fnirtCNF = [FSLDIR '/etc/flirtsch/T1_2_MNI152_2mm.cnf'];
+fnirtCNF = fullfile(FSLDIR, 'etc', 'flirtsch', 'T1_2_MNI152_2mm.cnf');
 
 % for each subject
 for i = 1:length(IXIsubjIDs)
@@ -264,16 +264,16 @@ for i = 1:length(IXIsubjIDs)
     movingImage = [IXIsubjIDs{i} '-T1'];
     
     % the moving image with full path
-    movingImageFilename = [IXIpreprocessedDIR filesep movingImage];
+    movingImageFilename = fullfile(IXIpreprocessedDIR, movingImage);
     
     % file name for the initial linear transformation
-    initialTransformFilename = [spatialNormalisationDIR filesep movingImage 'to' fixedImage '.mat'];
+    initialTransformFilename = fullfile(spatialNormalisationDIR, [movingImage 'to' fixedImage '.mat']);
     
     % file name for the estimated non-linear transformation
-    transformFilename = [spatialNormalisationDIR filesep movingImage 'to' fixedImage '_warpcoef'];
+    transformFilename = fullfile(spatialNormalisationDIR, [movingImage 'to' fixedImage '_warpcoef']);
     
     % file name for the fnirt log
-    logFilename = [spatialNormalisationDIR filesep movingImage 'to' fixedImage '_fnirt.log'];
+    logFilename = fullfile(spatialNormalisationDIR, [movingImage 'to' fixedImage '_fnirt.log']);
     
     % set up the command string to execute the registration
     cmd = ['fnirt --config=' fnirtCNF ' --in=' movingImageFilename ' --aff=' initialTransformFilename ' --cout=' transformFilename ' --logout=' logFilename ' -v '];
@@ -298,13 +298,13 @@ for i = 1:length(IXIsubjIDs)
     movingImage = [IXIsubjIDs{i} '-T1'];
     
     % the moving image with full path
-    movingImageFilename = [IXIpreprocessedDIR filesep movingImage];
+    movingImageFilename = fullfile(IXIpreprocessedDIR, movingImage);
     
     % file name for the estimated non-linear transformation
-    transformFilename = [spatialNormalisationDIR filesep movingImage 'to' fixedImage '_warpcoef'];
+    transformFilename = fullfile(spatialNormalisationDIR, [movingImage 'to' fixedImage '_warpcoef']);
     
     % file name for the transformed moving image
-    outputFilename = [spatialNormalisationDIR filesep movingImage 'to' fixedImageHighRes '-nonlinear'];
+    outputFilename = fullfile(spatialNormalisationDIR, [movingImage 'to' fixedImageHighRes '-nonlinear']);
     
     % set up the command string to transform the moving image
     cmd = ['applywarp -i ' movingImageFilename ' -r ' fixedImageHighResFilename ' -w ' transformFilename ' -o ' outputFilename];
@@ -338,13 +338,13 @@ movingImage = [IXIsubjIDs{1} '-T1'];
 % in this demo, as an example, we will look along the sagittal plane, which
 % turns out to be the most interesting for this subject
 %
-gridImageFilename = ['grids' filesep movingImage '-gridx'];
+gridImageFilename = fullfile('grids', [movingImage '-gridx']);
 
 % file name for the estimated non-linear transformation
-transformFilename = [spatialNormalisationDIR filesep movingImage 'to' fixedImage '_warpcoef'];
+transformFilename = fullfile(spatialNormalisationDIR, [movingImage 'to' fixedImage '_warpcoef']);
 
 % file name for the transformed moving image
-outputFilename = [spatialNormalisationDIR filesep movingImage 'to' fixedImageHighRes '-nonlinear'];
+outputFilename = fullfile(spatialNormalisationDIR, [movingImage 'to' fixedImageHighRes '-nonlinear']);
 
 % file name for the transformed moving image
 outputFilename = [outputFilename '-gridx'];

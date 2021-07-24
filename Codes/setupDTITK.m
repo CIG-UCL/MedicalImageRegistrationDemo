@@ -49,7 +49,7 @@ end
 currentPATH = getenv('PATH');
 
 % append the path to DTI-TK tools
-updatedPATH = [currentPATH pathsep DTITK_ROOT filesep 'bin' pathsep DTITK_ROOT filesep 'scripts' pathsep DTITK_ROOT filesep 'utilities'];
+updatedPATH = [currentPATH pathsep fullfile(DTITK_ROOT, 'bin') pathsep fullfile(DTITK_ROOT, 'scripts') pathsep fullfile(DTITK_ROOT, 'utilities')];
 
 % update the PATH environment variable
 setenv('PATH', updatedPATH);

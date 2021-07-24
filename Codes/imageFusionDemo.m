@@ -80,18 +80,18 @@ IXIsubjIDs = {'IXI002-Guys-0828', 'IXI025-Guys-0852'};
 %
 
 % file name for the identity transformation
-identityFilename = [FSLDIR filesep 'etc' filesep 'flirtsch' filesep 'ident.mat'];
+identityFilename = fullfile(FSLDIR, 'etc', 'flirtsch', 'ident.mat');
 
 % for each subject
 for i = 1:length(IXIsubjIDs)
     % fixed image file name with full path
-    fixedImageFilename = [IXIoriginalDIR filesep IXIsubjIDs{i} '-T2'];
+    fixedImageFilename = fullfile(IXIoriginalDIR, [IXIsubjIDs{i} '-T2']);
     
     % moving image file name with full path
-    movingImageFilename = [IXIpreprocessedDIR filesep IXIsubjIDs{i} '-T1'];
+    movingImageFilename = fullfile(IXIpreprocessedDIR, [IXIsubjIDs{i} '-T1']);
     
     % file name for the resliced moving image
-    outputImageFilename = [imageFusionDIR filesep IXIsubjIDs{i} '-T1'];
+    outputImageFilename = fullfile(imageFusionDIR, [IXIsubjIDs{i} '-T1']);
     
     % set up the command string to apply the identity transformation to
     % the moving image
@@ -127,13 +127,13 @@ similarity = 'mutualinfo';
 % for each subject
 for i = 1:length(IXIsubjIDs)
     % fixed image file name with full path
-    fixedImageFilename = [IXIoriginalDIR filesep IXIsubjIDs{i} '-T2'];
+    fixedImageFilename = fullfile(IXIoriginalDIR, [IXIsubjIDs{i} '-T2']);
     
     % moving image file name with full path
-    movingImageFilename = [IXIpreprocessedDIR filesep IXIsubjIDs{i} '-T1'];
+    movingImageFilename = fullfile(IXIpreprocessedDIR, [IXIsubjIDs{i} '-T1']);
     
     % file name for the estimated linear transformation
-    transformFilename = [imageFusionDIR filesep IXIsubjIDs{i} '-T1toT2.mat'];
+    transformFilename = fullfile(imageFusionDIR, [IXIsubjIDs{i} '-T1toT2.mat']);
     
     % set up the command string to execute the registration
     cmd = ['flirt -in ' movingImageFilename ' -ref ' fixedImageFilename ' -cost ' similarity ' -searchcost ' similarity ' -dof ' dof ' -omat ' transformFilename ' -v '];
@@ -154,16 +154,16 @@ end
 
 for i = 1:length(IXIsubjIDs)
     % fixed image file name with full path
-    fixedImageFilename = [IXIoriginalDIR filesep IXIsubjIDs{i} '-T2'];
+    fixedImageFilename = fullfile(IXIoriginalDIR, [IXIsubjIDs{i} '-T2']);
     
     % moving image file name with full path
-    movingImageFilename = [IXIpreprocessedDIR filesep IXIsubjIDs{i} '-T1'];
+    movingImageFilename = fullfile(IXIpreprocessedDIR, [IXIsubjIDs{i} '-T1']);
     
     % file name for the estimated linear transformation
-    transformFilename = [imageFusionDIR filesep IXIsubjIDs{i} '-T1toT2.mat'];
+    transformFilename = fullfile(imageFusionDIR, [IXIsubjIDs{i} '-T1toT2.mat']);
 
     % file name for the transformed moving image
-    outputFilename = [imageFusionDIR filesep IXIsubjIDs{i} '-T1toT2'];
+    outputFilename = fullfile(imageFusionDIR, [IXIsubjIDs{i} '-T1toT2']);
     
     % set up the command string to transform the moving image
     cmd = ['flirt -in ' movingImageFilename ' -ref ' fixedImageFilename ' -applyxfm -init ' transformFilename ' -out ' outputFilename];
@@ -187,10 +187,10 @@ end
 %
 
 % fixed image file name with full path
-fixedImageFilename = [IXIoriginalDIR filesep IXIsubjIDs{1} '-T2'];
+fixedImageFilename = fullfile(IXIoriginalDIR, [IXIsubjIDs{1} '-T2']);
 
 % moving image file name with full path
-movingImageFilename = [IXIpreprocessedDIR filesep IXIsubjIDs{1} '-T1'];
+movingImageFilename = fullfile(IXIpreprocessedDIR, [IXIsubjIDs{1} '-T1']);
 
 % create the grid volumes that match the voxel space of the moving image
 createGrids(movingImageFilename);
@@ -207,13 +207,13 @@ createGrids(movingImageFilename);
 % in this demo, as an example, we will look along the sagittal plane, which
 % turns out to be the most interesting for this subject
 %
-gridImageFilename = ['grids' filesep IXIsubjIDs{1} '-T1-gridx'];
+gridImageFilename = fullfile('grids', [IXIsubjIDs{1} '-T1-gridx']);
 
 % file name for the estimated linear transformation
-transformFilename = [imageFusionDIR filesep IXIsubjIDs{1} '-T1toT2.mat'];
+transformFilename = fullfile(imageFusionDIR, [IXIsubjIDs{1} '-T1toT2.mat']);
 
 % file name for the transformed moving image
-outputFilename = [imageFusionDIR filesep IXIsubjIDs{1} '-T1toT2-gridx'];
+outputFilename = fullfile(imageFusionDIR, [IXIsubjIDs{1} '-T1toT2-gridx']);
 
 % set up the command string to transform the moving image
 cmd = ['flirt -in ' gridImageFilename ' -ref ' fixedImageFilename ' -applyxfm -init ' transformFilename ' -out ' outputFilename];
