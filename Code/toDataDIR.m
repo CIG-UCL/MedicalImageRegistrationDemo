@@ -13,10 +13,10 @@ function toDataDIR()
 thisFunctionFullPath = mfilename('fullpath');
 
 % get the name of the directory where this function is
-CodesDIR = fileparts(thisFunctionFullPath);
+CodeDIR = fileparts(thisFunctionFullPath);
 
 % change to the Codes folder
-cd(CodesDIR)
+cd(CodeDIR)
 
 % change to the Data folder
 cd(fullfile('..','Data'));
