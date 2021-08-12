@@ -40,23 +40,23 @@ Matlab provides a simple GUI to download a Git respository. The documentation of
 
 After you have downloaded the repository onto your local system, there are just a few simple steps before you can run the actual demos.
 
-1. Add the [Codes](Codes) folder to the Matlab PATH
+1. Add the [Code](Code) folder to the Matlab PATH
 
-To do this, first find the full path to this folder. For example, on my system, this is `/Users/gzhang/unix/research/matlab/MedicalImageRegistrationDemo/Codes`.
+To do this, first find the full path to this folder. For example, on my system, this is `/Users/gzhang/unix/research/matlab/MedicalImageRegistrationDemo/Code`.
 
 Next call a built-in Matlab function called [`addpath`](https://mathworks.com/help/matlab/ref/addpath.html) with the full path, in quotation marks, as its input.  On my system, the appropriate Matlab command is
 
 ```bash
-  addpath('/Users/gzhang/unix/research/matlab/MedicalImageRegistrationDemo/Codes')
+  addpath('/Users/gzhang/unix/research/matlab/MedicalImageRegistrationDemo/Code')
 ```
 
-If you need help with this, please follow this [visual guide](Help/CodesAdd2Path.png) or refer to [Matlab's documentation](https://mathworks.com/help/matlab/ref/addpath.html).
+If you need help with this, please follow this [visual guide](Help/CodeAdd2Path.png) or refer to [Matlab's documentation](https://mathworks.com/help/matlab/ref/addpath.html).
 
 2. Set up the Matlab environment to run FSL
 
 A number of Matlab environment variables are required to allow FSL tools to run from within Matlab. To set this up, first find the full path to the root folder of your FSL installation. For example, on my system, this is `/opt/fsl`.
 
-Next call a Matlab function we provide called [`setupFSL`](Codes/setupFSL.m) with the full path, in quotation marks, as its input. On my system, the appropriate Matlab command is
+Next call a Matlab function we provide called [`setupFSL`](Code/setupFSL.m) with the full path, in quotation marks, as its input. On my system, the appropriate Matlab command is
 
 ```bash
   setupFSL('/opt/fsl')
@@ -68,7 +68,7 @@ If you need help with this, please follow this [visual guide](Help/FSLsetup.png)
 
 The reason to do this is similar to FSL and the process is similar as well. First find the full path to the root directory of your DTI-TK installation. Using my system as an example again, this is `/Users/gzhang/unix/tools/dtitk-2.3.3-Darwin-x86_64`.
 
-Next call a Matlab function we provide called [`setupDTITK`](Codes/setupDTITK.m) with the full path, in quotation marks, as its input. On my system, the appropriate Matlab command is
+Next call a Matlab function we provide called [`setupDTITK`](Code/setupDTITK.m) with the full path, in quotation marks, as its input. On my system, the appropriate Matlab command is
 
 ```bash
   setupDTITK('/Users/gzhang/unix/tools/dtitk-2.3.3-Darwin-x86_64')
@@ -80,7 +80,7 @@ If you need help with this, please follow this [visual guide](Help/DTITKsetup.pn
 
 There are currently two demos provided: Image Fusion and Spatial Normalisation.
 
-1. [Image Fusion](Codes/imageFusionDemo.m)
+1. [Image Fusion](Code/imageFusionDemo.m)
 
 To run this demo, simply run the following Matlab command:
 
@@ -88,7 +88,7 @@ To run this demo, simply run the following Matlab command:
   imageFusionDemo
 ```
 
-2. [Spatial Normalisation](Codes/spatialNormalisationDemo.m)
+2. [Spatial Normalisation](Code/spatialNormalisationDemo.m)
 
 To run this demo, simply run the following Matlab command:
 
