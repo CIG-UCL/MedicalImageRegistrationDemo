@@ -74,6 +74,75 @@ for i = 1:length(IXIsubjIDs)
     unix(cmd);
 end
 
+%% merge the first 16 3-D DWI volumes into a single 4-D DWI volume
+
+% for each subject ID
+for i=1:length(IXIsubjIDs)
+    % input 3-D DWI's prefix with full path
+    inputPrefix = fullfile(IXIoriginalDIR, [IXIsubjIDs{i} '-DTI-']);
+    
+    % output 4-D DWI file name with full path
+    outputFilename = fullfile(IXIpreprocessedDIR, [IXIsubjIDs{i} '-DWI']);
+    
+    % set up the command string to execute the merging
+    cmd = ['fslmerge -t ' outputFilename ' ' inputPrefix '0* ' inputPrefix '1[0-5]*'];
+    
+    % print out the command string
+    disp(cmd);
+    
+    % execute the command
+    unix(cmd);
+end
+
+%% extract brain regions from b=0 DWI
+
+% for each subject ID
+for i=1:length(IXIsubjIDs)
+    % input b=0 DWI file name with full path
+    inputFilename = fullfile(IXIoriginalDIR, [IXIsubjIDs{i} '-DTI-00']);
+    
+    % output brain mask prefix with full path
+    outputPrefix = fullfile(IXIpreprocessedDIR, [IXIsubjIDs{i} '-DWI']);
+    
+    % set up the command string to execute brain extraction
+    cmd = ['bet ' inputFilename ' ' outputPrefix ' -m -n -f 0.3'];
+    
+    % print out the command string
+    disp(cmd);
+    
+    % execute the command
+    unix(cmd);
+end
+
+%% estimate DTI from DWI
+
+% for each subject ID
+for i=1:length(IXIsubjIDs)
+    % input 4-D DWI file name with full path
+    inputDWIfilename = fullfile(IXIpreprocessedDIR, [IXIsubjIDs{i} '-DWI']);
+    
+    % input b=0 brain mask
+    inputMaskFilename = fullfile(IXIpreprocessedDIR, [IXIsubjIDs{i} '-DWI_mask']);
+    
+    % input bval file name
+    inputBvalFilename = fullfile(IXIoriginalDIR, 'bvals.txt');
+    
+    % input bvec file name
+    inputBvecFilename = fullfile(IXIoriginalDIR, 'bvecs.txt');
+    
+    % output prefix
+    outputPrefix = fullfile(IXIpreprocessedDIR, [IXIsubjIDs{i} '-DTI']);
+    
+    % set up the command string to execute DTI estimation
+    cmd = ['dtifit -k ' inputDWIfilename ' -m ' inputMaskFilename ' -r ' inputBvecFilename ' -b ' inputBvalFilename ' -o ' outputPrefix];
+    
+    % print out the command string
+    disp(cmd);
+    
+    % execute the command
+    unix(cmd);
+end
+
 %% back to the original folder
 
 cd(originalDIR);
