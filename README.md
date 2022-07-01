@@ -2,6 +2,8 @@
 
 Image registration is one of the key enabling technologies for medical image analysis.  The purpose of this repository is to provide a set of demonstrations that showcase the important roles that image registration plays in the processing and analysis of brain MRI scans.
 
+Examples produced from this demo were included as part of "Image Registration" - Chapter 6 of the book "[Advanced Neuro MR Techniques and Applications](https://www.elsevier.com/books/advanced-neuro-mr-techniques-and-applications/choi/978-0-12-822479-3)".
+
 ## Prerequisites
 
 1. [Matlab](http://mathworks.com)
