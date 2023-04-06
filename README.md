@@ -18,7 +18,7 @@ This provides the underpinning image registration tools required for the demos, 
 
 The demos also make use of FSL's various utilities for processing NIfTI images.
 
-3. [DTI-TK](http://dti-tk.sf.net)
+3. [DTI-TK](https://dti-tk.sourceforge.net/pmwiki/pmwiki.php)
 
 This provides the tool that helps with the visualisation of geometric transformations.
 
